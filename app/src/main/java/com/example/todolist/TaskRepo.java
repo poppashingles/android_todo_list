@@ -78,4 +78,10 @@ public class TaskRepo extends SQLiteOpenHelper {
 
     }
 
+    public void deleteTask(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("delete from " + TABLE_NAME + " where id='"+id+"'");
+
+    }
+
 }

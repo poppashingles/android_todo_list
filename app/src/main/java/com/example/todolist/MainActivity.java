@@ -78,14 +78,20 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     public void getTask(View title) {
-        Task selectedTask = (Task) title.getTag();
+        final TaskRepo myDb = new TaskRepo(this);
+        final Task selectedTask = (Task) title.getTag();
 
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle(selectedTask.getTitle());
         alertDialog.setMessage(selectedTask.getDescription());
+
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+//                        Intent intent = new Intent(MainActivity.this, AddNewActivity.class);
+//                        startActivity(intent);
+                        myDb.deleteTask(selectedTask.getId().toString());
+//                        Refresh data?
                         dialog.dismiss();
                     }
                 });
