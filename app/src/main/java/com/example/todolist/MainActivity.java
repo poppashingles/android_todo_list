@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 //                        startActivity(intent);
                         myDb.deleteTask(selectedTask.getId().toString());
 //                        Refresh data?
+                        this.notifyAll();
                         dialog.dismiss();
                     }
                 });
