@@ -2,8 +2,11 @@ package com.example.todolist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by user on 17/11/2017
@@ -11,6 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private static final int VERSION = 3;
     private static final String DATABASE_NAME = "tasks.db";
     private static final String TABLE_NAME = "tasks_table";
     private static final String COL_1 = "ID";
@@ -19,12 +23,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_4 = "COMPLETED";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,TITLE TEXT,DESCRIPTION TEXT,BOOLEAN INTEGER)");
+        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,TITLE TEXT,DESCRIPTION TEXT,COMPLETED BOOLEAN)");
     }
 
     @Override
@@ -33,14 +37,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String title, String description, String completed) {
+    public boolean insertData(String title, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, title);
         contentValues.put(COL_3, description);
-        contentValues.put(COL_4, completed);
+        contentValues.put(COL_4, "false");
         long result = db.insert(TABLE_NAME, null, contentValues);
-        return true;
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
+
+    public ArrayList<Task> getAllData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Task> tasks = new ArrayList<Task>();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        if (cursor != null)
+        {
+            if (cursor.moveToFirst()) {
+                do  {
+
+                    String completedStr = cursor.getString(3);
+
+                    boolean completed = completedStr.equals("true");
+
+                    tasks.add(new Task(cursor.getInt(0), cursor.getString(1), cursor.getString(2), completed));
+                } while(cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        db.close();
+
+        return tasks;
     }
 
 }
