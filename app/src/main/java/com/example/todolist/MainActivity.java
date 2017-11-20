@@ -1,9 +1,12 @@
 package com.example.todolist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseHelper myDb = new DatabaseHelper(this);
+        TaskRepo myDb = new TaskRepo(this);
 
 
 //      Listview
@@ -58,4 +61,39 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+    public void onItemClicked(View view){
+
+//        Log.d("Item clicked", "Item clicked");
+//        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//        alertDialog.setTitle("Alert");
+//        alertDialog.setMessage("Alert message to be shown");
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//        alertDialog.show();
+    }
+
+    public void getTask(View title) {
+        Task selectedTask = (Task) title.getTag();
+
+        Toast.makeText(this, selectedTask.getTitle(), Toast.LENGTH_SHORT).show();
+
+//        //        Log.d("Item clicked", "Item clicked");
+//        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+//        alertDialog.setTitle(selectedTask.getTitle());
+//        alertDialog.setMessage(selectedTask.getDescription());
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//        alertDialog.show();
+    }
+
+
 }

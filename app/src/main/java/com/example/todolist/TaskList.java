@@ -12,15 +12,11 @@ public class TaskList {
 
     public TaskList() {
         taskList = new ArrayList<Task>();
-
-        taskList.add((new Task(1, "Shopping", "Shopping", false)));
-        taskList.add((new Task(1, "Stuff", "Stuff", true)));
-        taskList.add((new Task(1, "Things", "Things", false)));
-        taskList.add((new Task(1, "Roustabouting", "Rousting about", true)));
     }
 
     public ArrayList<Task> getList() {
         return taskList;
     }
+
 
 }

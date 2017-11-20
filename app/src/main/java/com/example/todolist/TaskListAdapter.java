@@ -1,6 +1,7 @@
 package com.example.todolist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,10 +40,11 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         checkbox.setChecked(currentTaskItem.getCompleted());
 
 
-        listItemView.setTag(currentTaskItem);
+        title.setTag(currentTaskItem);
 
         return listItemView;
 
     }
+
 
 }

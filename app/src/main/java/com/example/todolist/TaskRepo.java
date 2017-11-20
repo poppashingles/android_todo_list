@@ -2,9 +2,11 @@ package com.example.todolist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.v7.app.AlertDialog;
 
 import java.util.ArrayList;
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
  * Created by user on 17/11/2017
  */
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class TaskRepo extends SQLiteOpenHelper {
 
     private static final int VERSION = 3;
     private static final String DATABASE_NAME = "tasks.db";
@@ -22,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_3 = "DESCRIPTION";
     private static final String COL_4 = "COMPLETED";
 
-    public DatabaseHelper(Context context) {
+    public TaskRepo(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -73,6 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return tasks;
+
     }
 
 }
