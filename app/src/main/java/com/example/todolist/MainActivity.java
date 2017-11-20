@@ -62,37 +62,42 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void onItemClicked(View view){
-
-//        Log.d("Item clicked", "Item clicked");
-//        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-//        alertDialog.setTitle("Alert");
-//        alertDialog.setMessage("Alert message to be shown");
-//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//        alertDialog.show();
-    }
+//    public void onItemClicked(View view){
+//
+////        Log.d("Item clicked", "Item clicked");
+////        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+////        alertDialog.setTitle("Alert");
+////        alertDialog.setMessage("Alert message to be shown");
+////        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+////                new DialogInterface.OnClickListener() {
+////                    public void onClick(DialogInterface dialog, int which) {
+////                        dialog.dismiss();
+////                    }
+////                });
+////        alertDialog.show();
+//    }
 
     public void getTask(View title) {
         Task selectedTask = (Task) title.getTag();
 
-        Toast.makeText(this, selectedTask.getTitle(), Toast.LENGTH_SHORT).show();
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        alertDialog.setTitle(selectedTask.getTitle());
+        alertDialog.setMessage(selectedTask.getDescription());
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
 
-//        //        Log.d("Item clicked", "Item clicked");
-//        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-//        alertDialog.setTitle(selectedTask.getTitle());
-//        alertDialog.setMessage(selectedTask.getDescription());
-//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-//                new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//        alertDialog.show();
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "EDIT",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        alertDialog.show();
     }
 
 

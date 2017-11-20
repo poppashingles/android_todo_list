@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class AddNewActivity extends AppCompatActivity {
 
-    DatabaseHelper myDb;
+    TaskRepo myDb;
     Button button_add_new;
     EditText edittextNewDescription, edittextNewTitle;
 
@@ -19,7 +19,7 @@ public class AddNewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
 
-        myDb = new DatabaseHelper(this);
+        myDb = new TaskRepo(this);
         button_add_new = findViewById(R.id.button_add_new);
         edittextNewDescription = findViewById(R.id.edittext_new_description);
         edittextNewTitle = findViewById(R.id.edittext_new_title);
