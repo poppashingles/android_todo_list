@@ -62,24 +62,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-//    public void onItemClicked(View view){
-//
-////        Log.d("Item clicked", "Item clicked");
-////        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-////        alertDialog.setTitle("Alert");
-////        alertDialog.setMessage("Alert message to be shown");
-////        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-////                new DialogInterface.OnClickListener() {
-////                    public void onClick(DialogInterface dialog, int which) {
-////                        dialog.dismiss();
-////                    }
-////                });
-////        alertDialog.show();
-//    }
 
     public void getTask(View title) {
         final TaskRepo myDb = new TaskRepo(this);
         final Task selectedTask = (Task) title.getTag();
+//        ArrayList<Task> tasks = new ArrayList<>();
+//        final TaskListAdapter taskListAdapter = new TaskListAdapter(this, tasks);
 
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle(selectedTask.getTitle());
@@ -91,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
 //                        Intent intent = new Intent(MainActivity.this, AddNewActivity.class);
 //                        startActivity(intent);
                         myDb.deleteTask(selectedTask.getId().toString());
-//                        Refresh data?
-                        this.notifyAll();
+//                        taskListAdapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 });
