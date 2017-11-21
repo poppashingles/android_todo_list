@@ -81,6 +81,7 @@ public class TaskRepo extends SQLiteOpenHelper {
     public void deleteTask(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("delete from " + TABLE_NAME + " where id='"+id+"'");
+        //db.delete();
     }
 
     public boolean updateTask(String id, String title, String description) {
@@ -88,8 +89,8 @@ public class TaskRepo extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, title);
         contentValues.put(COL_3, description);
-       int resylt = db.update(TABLE_NAME, contentValues, "id= ?", new String[] {id} );
-       return resylt != -1;
+        int result = db.update(TABLE_NAME, contentValues, "id= ?", new String[] {id} );
+        return result != -1;
     }
 
 }

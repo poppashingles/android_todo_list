@@ -51,6 +51,75 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void addNewTask(View button) {
+        final TaskRepo myDb = new TaskRepo(this);
+
+        AlertDialog newAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        newAlertDialog.setTitle("Add a new task");
+
+        /* start of hack */
+        LinearLayout layout = new LinearLayout(MainActivity.this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText titleBox = new EditText(MainActivity.this);
+        titleBox.setHint("Title");
+        layout.addView(titleBox);
+
+        final EditText descriptionBox = new EditText(MainActivity.this);
+        descriptionBox.setHint("Description");
+        layout.addView(descriptionBox);
+
+        newAlertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Add new task", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myDb.insertData(titleBox.getText().toString(), descriptionBox.getText().toString());
+                MainActivity.this.refreshAdapter();
+                dialog.dismiss();
+            }
+        });
+
+        newAlertDialog.setView(layout);
+        /* end of hack */
+        /*
+        newAlertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Add task",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        final AlertDialog newAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                        newAlertDialog.setTitle("Add a new task");
+
+                        LinearLayout layout = new LinearLayout(MainActivity.this);
+                        layout.setOrientation(LinearLayout.VERTICAL);
+
+                        final EditText titleBox = new EditText(MainActivity.this);
+                        titleBox.setHint("Title");
+                        layout.addView(titleBox);
+
+                        final EditText descriptionBox = new EditText(MainActivity.this);
+                        descriptionBox.setHint("Description");
+                        layout.addView(descriptionBox);
+
+                        newAlertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Add new task", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                myDb.insertData(titleBox.getText().toString(), descriptionBox.getText().toString());
+                                MainActivity.this.refreshAdapter();
+                                dialog.dismiss();
+                            }
+                        });
+
+                        newAlertDialog.setView(layout);
+
+                        newAlertDialog.show();
+                    }
+                });
+                */
+
+
+
+        newAlertDialog.show();
+    }
+
 
     private void refreshAdapter() {
         TaskRepo myDb = new TaskRepo(this);
