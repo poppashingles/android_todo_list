@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                         editAlertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "UPDATE", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                myDb.updateTask(selectedTask.getId().toString(), titleBox.getText().toString(), descriptionBox.getText().toString());
+                                myDb.updateTask(selectedTask.getId().toString(), titleBox.getText().toString(), descriptionBox.getText().toString(), selectedTask.getCompleted());
                                 MainActivity.this.refreshAdapter();
                                 dialog.dismiss();
                             }
@@ -153,7 +153,12 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public void onChecked(View view) {
+        TaskRepo myDb = new TaskRepo(this);
+        Task task = (Task) view.getTag();
+        task.whenChecked();
 
-
+        myDb.updateTask(task.getId().toString(), task.getTitle(), task.getDescription(), task.getCompleted());
+    }
 
 }

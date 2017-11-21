@@ -38,4 +38,7 @@ public class Task{
         return completed;
     }
 
+    public void whenChecked() {
+        this.completed = !this.completed;
+    }
 }

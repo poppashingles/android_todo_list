@@ -39,6 +39,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
 
         checkbox.setChecked(currentTaskItem.getCompleted());
 
+        checkbox.setTag(currentTaskItem);
 
         title.setTag(currentTaskItem);
 

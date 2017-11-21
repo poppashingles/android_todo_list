@@ -1,5 +1,6 @@
 package com.example.todolist;
 
+import android.app.LauncherActivity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -7,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -44,7 +46,7 @@ public class TaskRepo extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, title);
         contentValues.put(COL_3, description);
-        contentValues.put(COL_4, "false");
+        contentValues.put(COL_4, false);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if(result == -1)
             return false;
@@ -64,7 +66,7 @@ public class TaskRepo extends SQLiteOpenHelper {
 
                     String completedStr = cursor.getString(3);
 
-                    boolean completed = completedStr.equals("true");
+                    boolean completed = completedStr.equals("1");
 
                     tasks.add(new Task(cursor.getInt(0), cursor.getString(1), cursor.getString(2), completed));
                 } while(cursor.moveToNext());
@@ -83,13 +85,16 @@ public class TaskRepo extends SQLiteOpenHelper {
         db.execSQL("delete from " + TABLE_NAME + " where id='"+id+"'");
     }
 
-    public boolean updateTask(String id, String title, String description) {
+    public boolean updateTask(String id, String title, String description, Boolean checked) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, title);
         contentValues.put(COL_3, description);
+        contentValues.put(COL_4, checked);
         int result = db.update(TABLE_NAME, contentValues, "id= ?", new String[] {id} );
         return result != -1;
     }
+
+
 
 }
