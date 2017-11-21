@@ -21,7 +21,6 @@
             android:name=".AddNewActivity"
             android:label="Add A New Task"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ShowTaskActivity"></activity>
     </application>
 
 </manifest>

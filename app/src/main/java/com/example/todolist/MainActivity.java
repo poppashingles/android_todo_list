@@ -1,5 +1,6 @@
 package com.example.todolist;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,21 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TaskRepo myDb = new TaskRepo(this);
-
-
-//      Listview
-//      TaskList taskList = new TaskList();
-        ArrayList<Task> tasks = myDb.getAllData();
-        TaskListAdapter taskAdapter = new TaskListAdapter(this, tasks);
-        ListView listView = findViewById(R.id.list);
-        listView.setAdapter(taskAdapter);
-
-//        TaskList taskList = new TaskList();
-//        ArrayList<Task> tasks = taskList.getList();
-//        TaskListAdapter taskAdapter = new TaskListAdapter(this, tasks);
-//        ListView listView = findViewById(R.id.list);
-//        listView.setAdapter(taskAdapter);
+        refreshAdapter();
     }
 
     //  Menu
@@ -63,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void refreshAdapter() {
+        TaskRepo myDb = new TaskRepo(this);
+        ArrayList<Task> tasks = myDb.getAllData();
+        TaskListAdapter taskAdapter = new TaskListAdapter(this, tasks);
+        ListView listView = findViewById(R.id.list);
+        listView.setAdapter(taskAdapter);
+    }
+
+
     public void getTask(View title) {
         final TaskRepo myDb = new TaskRepo(this);
         final Task selectedTask = (Task) title.getTag();
@@ -73,13 +71,14 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setTitle(selectedTask.getTitle());
         alertDialog.setMessage(selectedTask.getDescription());
 
+
+
+
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        Intent intent = new Intent(MainActivity.this, AddNewActivity.class);
-//                        startActivity(intent);
                         myDb.deleteTask(selectedTask.getId().toString());
-//                        taskListAdapter.notifyDataSetChanged();
+                        MainActivity.this.refreshAdapter();
                         dialog.dismiss();
                     }
                 });
@@ -87,12 +86,42 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "EDIT",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+
+                        final AlertDialog editAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                        editAlertDialog.setTitle("Edit " + selectedTask.getTitle());
+
+                        LinearLayout layout = new LinearLayout(MainActivity.this);
+                        layout.setOrientation(LinearLayout.VERTICAL);
+
+                        final EditText titleBox = new EditText(MainActivity.this);
+                        titleBox.setHint(selectedTask.getTitle());
+                        layout.addView(titleBox);
+
+                        final EditText descriptionBox = new EditText(MainActivity.this);
+                        descriptionBox.setHint(selectedTask.getDescription());
+                        layout.addView(descriptionBox);
+
+                        editAlertDialog.setTitle("Edit");
+
+                        editAlertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "UPDATE", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                myDb.updateTask(selectedTask.getId().toString(), titleBox.getText().toString(), descriptionBox.getText().toString());
+                                MainActivity.this.refreshAdapter();
+                                dialog.dismiss();
+                            }
+                        });
+
+                        editAlertDialog.setView(layout);
+
+                        editAlertDialog.show();
                     }
                 });
 
         alertDialog.show();
     }
+
+
 
 
 }
