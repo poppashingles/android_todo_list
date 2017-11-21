@@ -4,13 +4,11 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
-import java.io.Serializable;
-
 /**
  * Created by user on 17/11/2017
  */
 
-public class Task implements Serializable {
+public class Task{
 
     private Integer id;
     private String title;
