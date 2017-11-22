@@ -47,13 +47,9 @@ public class TestClickingAListViewItemDisplaysFurtherDataAndButtons {
     public void testClickingAListViewItemDisplaysFurtherDataAndButtons() {
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.button_new_task), withText("Add a new task"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
                         isDisplayed()));
         appCompatButton.perform(click());
+
 
         ViewInteraction editText = onView(
                 allOf(childAtPosition(
@@ -64,6 +60,7 @@ public class TestClickingAListViewItemDisplaysFurtherDataAndButtons {
                         isDisplayed()));
         editText.perform(replaceText("test"), closeSoftKeyboard());
 
+
         ViewInteraction editText2 = onView(
                 allOf(childAtPosition(
                         childAtPosition(
@@ -72,6 +69,7 @@ public class TestClickingAListViewItemDisplaysFurtherDataAndButtons {
                         1),
                         isDisplayed()));
         editText2.perform(replaceText("test"), closeSoftKeyboard());
+
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(android.R.id.button3), withText("Add new task"),
@@ -82,53 +80,33 @@ public class TestClickingAListViewItemDisplaysFurtherDataAndButtons {
                                 0)));
         appCompatButton2.perform(scrollTo(), click());
 
+
         ViewInteraction appCompatTextView = onView(
                 allOf(withId(R.id.title_textview), withText("test"),
-//                        childAtPosition(
-//                                withParent(withId(R.id.list)),
-//                                0),
                         isDisplayed()));
         appCompatTextView.perform(click());
 
+
         ViewInteraction textView = onView(
                 allOf(withId(R.id.alertTitle), withText("test"),
-//                        childAtPosition(
-//                                allOf(withId(R.id.title_template),
-//                                        childAtPosition(
-//                                                withId(R.id.topPanel),
-//                                                0)),
-//                                0),
                         isDisplayed()));
-
         textView.check(matches(withText("test")));
+
 
         ViewInteraction textView2 = onView(
                 allOf(withId(android.R.id.message), withText("test"),
-//                        childAtPosition(
-//                                childAtPosition(
-//                                        withId(R.id.scrollView),
-//                                        0),
-//                                0),
                         isDisplayed()));
         textView2.check(matches(withText("test")));
 
+
         ViewInteraction button = onView(
                 allOf(withId(android.R.id.button3),
-//                        childAtPosition(
-//                                childAtPosition(
-//                                        withId(R.id.buttonPanel),
-//                                        0),
-//                                0),
                         isDisplayed()));
         button.check(matches(isDisplayed()));
 
+
         ViewInteraction button2 = onView(
                 allOf(withId(android.R.id.button2),
-//                        childAtPosition(
-//                                childAtPosition(
-//                                        withId(R.id.buttonPanel),
-//                                        0),
-//                                0),
                         isDisplayed()));
         button2.check(matches(isDisplayed()));
 
