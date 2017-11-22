@@ -99,7 +99,4 @@ public class TaskRepo extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("delete from " + TABLE_NAME);
     }
-
-
-
 }
