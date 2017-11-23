@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog newAlertDialog = new AlertDialog.Builder(MainActivity.this).create();
         newAlertDialog.setTitle("Add a new task");
 
-        /* start of hack */
         LinearLayout layout = new LinearLayout(MainActivity.this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -138,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
                         editAlertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "UPDATE", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                myDb.updateTask(selectedTask.getId().toString(), titleBox.getText().toString(), descriptionBox.getText().toString(), selectedTask.getCompleted());
+                                myDb.updateTask(selectedTask.getId().toString(), titleBox.getText().toString(),
+                                        descriptionBox.getText().toString(), selectedTask.getCompleted());
                                 MainActivity.this.refreshAdapter();
                                 dialog.dismiss();
                             }

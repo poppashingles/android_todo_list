@@ -24,6 +24,7 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -51,52 +52,76 @@ public class TestClickingAListViewItemDisplaysFurtherDataAndButtons {
         appCompatButton.perform(click());
 
 
-        ViewInteraction editText = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.custom),
-                                0),
-                        0),
-                        isDisplayed()));
-        editText.perform(replaceText("test"), closeSoftKeyboard());
+//       Matcher<View> child2 = childAtPosition(withId(R.id.custom), 0);
+//
+//       Matcher<View> child1 = childAtPosition(child2, 0);
 
 
-        ViewInteraction editText2 = onView(
-                allOf(childAtPosition(
-                        childAtPosition(
-                                withId(R.id.custom),
-                                0),
-                        1),
-                        isDisplayed()));
-        editText2.perform(replaceText("test"), closeSoftKeyboard());
+
+//        Matcher<View> frameLayout = withId(R.id.custom);
+//
+//        Matcher<View> dialogLayout = childAtPosition(frameLayout, 0);
+//
+//        Matcher<View> editTextMatcher = childAtPosition(dialogLayout, 0);
+//
+//        ViewInteraction editText = onView(editTextMatcher);
+//
+
+
+                 ViewInteraction editText = onView(withHint("Title"));
+
+
+//        allOf(frameLayout, childAtPosition(
+//                frameLayout, 0
+//        )
+
+//                allOf(childAtPosition(
+//                        childAtPosition(
+//                                withId(R.id.custom),
+//                                0),
+//                        0),
+//                        isDisplayed()));
+        editText.perform(replaceText("Laundry"), closeSoftKeyboard());
+
+        ViewInteraction editText2 = onView(withHint("Description"));
+
+//        ViewInteraction editText2 = onView(
+//                allOf(childAtPosition(
+//                        childAtPosition(
+//                                withId(R.id.custom),
+//                                0),
+//                        1),
+//                        isDisplayed()));
+        editText2.perform(replaceText("Do stuff"), closeSoftKeyboard());
 
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(android.R.id.button3), withText("Add new task"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                0)));
+                allOf(withId(android.R.id.button3)));
         appCompatButton2.perform(scrollTo(), click());
 
 
         ViewInteraction appCompatTextView = onView(
-                allOf(withId(R.id.title_textview), withText("test"),
+                allOf(withId(R.id.title_textview),
                         isDisplayed()));
         appCompatTextView.perform(click());
 
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.alertTitle), withText("test"),
+                allOf(withId(R.id.alertTitle),
                         isDisplayed()));
-        textView.check(matches(withText("test")));
+
+        //only use withText either:
+            //1. Multiple same id
+            //2. Dont know id
+            // if multiple with text with same, then use childAtPosition
+
+        textView.check(matches(withText("Laundry")));
 
 
         ViewInteraction textView2 = onView(
-                allOf(withId(android.R.id.message), withText("test"),
+                allOf(withId(android.R.id.message),
                         isDisplayed()));
-        textView2.check(matches(withText("test")));
+        textView2.check(matches(withText("Do stuff")));
 
 
         ViewInteraction button = onView(
@@ -112,13 +137,13 @@ public class TestClickingAListViewItemDisplaysFurtherDataAndButtons {
 
     }
 
-    private static Matcher<View> childAtPosition(
-            final Matcher<View> parentMatcher, final int position) {
+    private static Matcher<View> childAtPosition(final Matcher<View> parentMatcher, final int position) {
 
         return new TypeSafeMatcher<View>() {
             @Override
             public void describeTo(Description description) {
                 description.appendText("Child at position " + position + " in parent ");
+
                 parentMatcher.describeTo(description);
             }
 
