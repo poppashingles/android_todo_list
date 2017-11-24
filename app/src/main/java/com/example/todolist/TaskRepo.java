@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class TaskRepo extends SQLiteOpenHelper {
 
+//
     private static final int VERSION = 3;
     private static final String DATABASE_NAME = "tasks.db";
     private static final String TABLE_NAME = "tasks_table";
@@ -99,4 +100,5 @@ public class TaskRepo extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("delete from " + TABLE_NAME);
     }
+
 }
