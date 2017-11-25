@@ -1,23 +1,14 @@
 package com.example.todolist;
 
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
@@ -31,25 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
         refreshAdapter();
     }
-
-    //  Menu
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater menuInflater = getMenuInflater();
-//        menuInflater.inflate(R.menu.activity_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if (item.getItemId() == R.id.action_add_new) {
-//            Intent intent = new Intent(this, AddNewActivity.class);
-//            startActivity(intent);
-//        }
-//
-//        return true;
-//    }
 
     public void addNewTask(View button) {
         final TaskRepo myDb = new TaskRepo(this);
